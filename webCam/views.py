@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 import paramiko
 from datetime import datetime
+from time import sleep
 
 
 from tools import getKey
@@ -33,8 +34,8 @@ def imageViewer(request, camID):
       computer = get_object_or_404(Computer, pk=camera.computer_id)
 
       # Get the current date time
-      dt = datetime.now().strftime('%y%m%d_%H:%M:%S')
-      print dt
+      dt = datetime.now().strftime('%y%m%d_%H%M%S')
+      dt_text = datetime.now().strftime('%H:%M:%S - %a %d %b %Y')
 
       # create a filename to save to.
       fname = "Cam{}_{}.jpg".format(camID, dt)
@@ -46,12 +47,16 @@ def imageViewer(request, camID):
                                     # doesn't recognise host.
       ssh.connect(computer.ip_address, username=computer.user_name, password=getKey(computer.user_name))
 
-      command = "cd Documents/Development/; python tools.py takePhoto --iso {} --ss {} --fn {}".format(iso, ss, fname)
+      command = "cd Documents/Development/; python tools.py takePhoto --iso {} --ss {} --tt {} --fn {}".format(iso, ss, dt_text, fname)
       print command
       stdin, stdout, stderr = ssh.exec_command(command)
       # Some sort of error handling would be good...
       #  print stderr.read()
 
+      # Wait for long enough for the photo to be taken.
+      sleep(45)
+
+      print 'XXXXXXXXX'
       # Now copy the file locally.
       sftp = ssh.open_sftp()
       sftp.get("Documents/Development/{}".format(fname), "webCam/static/webCam/images/blah.jpg")

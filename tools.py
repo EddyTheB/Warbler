@@ -1,6 +1,7 @@
 import os
 import json
 import time
+import sys
 import RPi.GPIO as GPIO
 from fractions import Fraction
 homeDir = os.path.expanduser('~')
@@ -36,24 +37,24 @@ def offGPIO(pinNo):
   GPIO.output(pinNo, False)
   GPIO.cleanup()
 
-def initCamera(mode='default'):
+def initCamera(mode='default', iso='default', ss='default', tt='default'):
   if gotpicamera == False:
     print 'not got picamera'
     # raise error
     return
-  if mode == 'lowlight':
+  if mode == 'default':
+    cam = PiCamera()
+    cam.start_preview()
+    time.sleep(2)
+  else:
     cam = PiCamera(resolution=(1280, 720), framerate=Fraction(1,6))
-    cam.color_effects = (128,128) # turn camera to black and white
-    cam.shutter_speed = 6000000 # 6 seconds is the maximum
-    cam.iso = 800
+    #cam.color_effects = (128,128) # turn camera to black and white
+    cam.shutter_speed = ss*1e6 # 6 seconds is the maximum
+    cam.iso = iso
     # Give the camera a good long time to set gains and
     # measure AWB (you may wish to use fixed AWB instead)
     time.sleep(30) #(30)
     cam.exposure_mode = 'off'
-  else:
-    cam = PiCamera()
-    cam.start_preview()
-    time.sleep(2)
   return cam
 
 def closeCamera(cam):
@@ -77,4 +78,21 @@ def takeLowLightPhoto():
     offGPIO(7)
 
 if __name__ == '__main__':
-  takeLowLightPhoto()
+  args = sys.argv[1:]
+
+  if args(0) == "takePhoto":
+    # Get the arguments
+    iso = args[args.index('--iso')+1]
+    ss = args[args.index('--ss')+1]
+    tt = args[args.index('--tt')+1]
+    fn = args[args.index('--fn')+1]
+    fn = fn
+
+    # Turn on the LEDs
+    onGPIO(7, duration=-1)
+    # initialize the camera
+    cam = initCamera(iso=iso, ss=ss, tt=tt)
+    # take the photo
+    takePhoto(cam, filename=fn)
+    # turn off the lights.
+    offGPIO(7)
