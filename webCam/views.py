@@ -2,6 +2,9 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 
 import paramiko
+from datetime import datetime
+
+
 from tools import getKey
 
 from .models import Computer, Camera, Image
@@ -20,15 +23,30 @@ def imageViewer(request, camID):
     if form.is_valid():
       print 'a'
       print form.cleaned_data
+
+      # get the camera
+      camera = get_object_or_404(Camera, pk=camID)
+
+      # get the computer
+      computer = get_object_or_404(Computer, pk=camera.computer_id)
+
+      # Get the current date time
+      dt = datetime.strptime(Date[:25].strip(), '%a, %d %b %Y %H:%M:%S')
+      print dt
+
+      # create a filename to save to.
+      fname = "Cam{}_{}.jpg".format(camID, dt)
+
+  # create a filename to save to.
+  fname = "image.jpg"
+
+
       pass
-    else:
-      print 'b'
 
   else:
-    print 'c'
     form = photoForm()
 
-  return render(request, 'webCam/imageViewer.html', {'camera': camID, 'address': 'blahXXX.jpg', 'form': photoForm()})
+  return render(request, 'webCam/imageViewer.html', {'camera': camID, 'address': 'blahXXX.jpg', 'form': form})
 
 
   """
