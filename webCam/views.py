@@ -54,6 +54,6 @@ def get_photoForm(request):
   else:
     form = photoForm()
 
-  return render(request, 'imageViewer.html', {'form': form})
+  return render(request, '/imageViewer/', {'form': form})
 
 
