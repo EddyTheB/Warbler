@@ -15,6 +15,7 @@ def index(request):
 
 def imageViewer(request, camID):
 
+  print 'EEEEEEEEEEE'
   # get the camera
   camera = get_object_or_404(Camera, pk=camID)
 
@@ -44,6 +45,9 @@ def imageViewer(request, camID):
 
 
 def get_photoForm(request):
+
+  print 'DDDDDDDDDDDDDDD'
+
   if request.method == 'POST':
     form = photoForm(request.POST)
     if form.is_valid():
