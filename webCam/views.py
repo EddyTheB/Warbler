@@ -40,7 +40,7 @@ def imageViewer(request, camID):
   ssh.close()
   #
 
-  return render(request, 'webCam/imageViewer.html', {'Address': 'blah.jpg'})
+  return render(request, 'webCam/imageViewer.html', {'address': 'blahXXX.jpg', 'form': photoForm()})
 
 
 def get_photoForm(request):
