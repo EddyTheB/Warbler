@@ -5,6 +5,6 @@
 
 <form action="/imageViewer.html" method="post">
     {% csrf_token %}
-    {{ form.as_table }}
+    {{ form.as_ul }}
     <input type="submit" value="Take Photo" />
 </form>

@@ -47,6 +47,8 @@ def get_photoForm(request):
   if request.method == 'POST':
     form = photoForm(request.POST)
     if form.is_valid():
+      print 'a'
+      print form
       pass
 
   else:
