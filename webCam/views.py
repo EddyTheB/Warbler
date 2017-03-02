@@ -23,8 +23,8 @@ def imageViewer(request, camID):
     if form.is_valid():
       print 'a'
       print form.cleaned_data
-      iso = form.cleaned_data.iso
-      ss = form.cleaned_data.shutterspeed
+      iso = form.cleaned_data['iso']
+      ss = form.cleaned_data['shutterspeed']
 
       # get the camera
       camera = get_object_or_404(Camera, pk=camID)
