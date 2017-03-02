@@ -16,6 +16,26 @@ def index(request):
 def imageViewer(request, camID):
 
   print 'EEEEEEEEEEE'
+
+  print 'DDDDDDDDDDDDDDD'
+
+  if request.method == 'POST':
+    form = photoForm(request.POST)
+    if form.is_valid():
+      print 'a'
+      print form
+      pass
+    else:
+      print 'b'
+
+  else:
+    print 'c'
+    form = photoForm()
+
+  return render(request, 'webCam/imageViewer.html', {'camera': camID, 'address': 'blahXXX.jpg', 'form': photoForm()})
+
+
+  """
   # get the camera
   camera = get_object_or_404(Camera, pk=camID)
 
@@ -42,7 +62,7 @@ def imageViewer(request, camID):
   #
 
   return render(request, 'webCam/imageViewer.html', {'camera': camID, 'address': 'blahXXX.jpg', 'form': photoForm()})
-
+  """
 
 def get_photoForm(request):
 
