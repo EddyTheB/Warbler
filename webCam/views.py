@@ -50,8 +50,11 @@ def get_photoForm(request):
       print 'a'
       print form
       pass
+    else:
+      print 'b'
 
   else:
+    print 'c'
     form = photoForm()
 
   return render(request, 'webCam/imageViewer.html', {'form': form})
