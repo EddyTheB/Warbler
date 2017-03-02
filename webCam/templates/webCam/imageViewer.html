@@ -3,7 +3,7 @@
 
 <img src="{% static '{{ address }}' %}" height=400 width=300/>
 
-<form action="webcam/ttt{{ camera }}" method="post">
+<form action="" method="post">
     {% csrf_token %}
     {{ form.as_ul }}
     <input type="submit" value="Take Photo" />
