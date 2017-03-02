@@ -12,7 +12,7 @@ from .forms import photoForm
 def index(request):
   return HttpResponse("Hello world! Index.")
 
-"""
+
 def imageViewer(request, camID):
 
   # get the camera
@@ -41,7 +41,7 @@ def imageViewer(request, camID):
   #
 
   return render(request, 'webCam/imageViewer.html', {'Address': 'blah.jpg'})
-"""
+
 
 def get_photoForm(request):
   if request.method == 'POST':
