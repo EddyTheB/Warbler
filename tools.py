@@ -2,9 +2,14 @@ import os
 import json
 import time
 import RPi.GPIO as GPIO
-from picamera import PiCamera
 from fractions import Fraction
 homeDir = os.path.expanduser('~')
+
+try:
+  from picamera import PiCamera
+  gotpicamera = True
+except ImportError:
+  gotpicamera = False
 
 def getKey(key, file='Default'):
   if file == 'Default':
@@ -32,6 +37,10 @@ def offGPIO(pinNo):
   GPIO.cleanup()
 
 def initCamera(mode='default'):
+  if gotpicamera == False:
+    print 'not got picamera'
+    # raise error
+    return
   if mode == 'lowlight':
     cam = PiCamera(resolution=(1280, 720), framerate=Fraction(1,6))
     cam.color_effects = (128,128) # turn camera to black and white
