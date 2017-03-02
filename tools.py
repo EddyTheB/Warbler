@@ -84,7 +84,7 @@ if __name__ == '__main__':
   if args[0] == "takePhoto":
     # Get the arguments
     iso = int(args[args.index('--iso')+1])
-    ss = int(args[args.index('--ss')+1])
+    ss = float(args[args.index('--ss')+1])
     tt = args[args.index('--tt')+1]
     fn = args[args.index('--fn')+1]
     fn = fn
