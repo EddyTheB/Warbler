@@ -49,7 +49,8 @@ def initCamera(mode='default', iso='default', ss='default', tt='default'):
   else:
     cam = PiCamera(resolution=(1280, 720), framerate=Fraction(1,6))
     #cam.color_effects = (128,128) # turn camera to black and white
-    cam.shutter_speed = ss*1e6 # 6 seconds is the maximum
+
+    cam.shutter_speed = ss*1000000 # 6 seconds is the maximum
     cam.iso = iso
     # Give the camera a good long time to set gains and
     # measure AWB (you may wish to use fixed AWB instead)
@@ -80,10 +81,10 @@ def takeLowLightPhoto():
 if __name__ == '__main__':
   args = sys.argv[1:]
 
-  if args(0) == "takePhoto":
+  if args[0] == "takePhoto":
     # Get the arguments
-    iso = args[args.index('--iso')+1]
-    ss = args[args.index('--ss')+1]
+    iso = int(args[args.index('--iso')+1])
+    ss = int(args[args.index('--ss')+1])
     tt = args[args.index('--tt')+1]
     fn = args[args.index('--fn')+1]
     fn = fn
@@ -91,8 +92,8 @@ if __name__ == '__main__':
     # Turn on the LEDs
     onGPIO(7, duration=-1)
     # initialize the camera
-    cam = initCamera(iso=iso, ss=ss, tt=tt)
+    cam = initCamera(mode='Y', iso=iso, ss=ss, tt=tt)
     # take the photo
-    takePhoto(cam, filename=fn)
+    takePhoto(cam, fileName=fn)
     # turn off the lights.
     offGPIO(7)

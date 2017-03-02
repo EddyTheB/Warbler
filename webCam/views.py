@@ -59,11 +59,14 @@ def imageViewer(request, camID):
       print 'XXXXXXXXX'
       # Now copy the file locally.
       sftp = ssh.open_sftp()
-      sftp.get("Documents/Development/{}".format(fname), "webCam/static/webCam/images/blah.jpg")
+      sftp.get("Documents/Development/{}".format(fname), "webCam/static/webCam/images/{}".format(fname))
       sftp.close()
+      # Now delete the original
+      command = "rm Documents/Development/{}".format(fname)
+      stdin, stdout, stderr = ssh.exec_command(command)
       ssh.close()
 
-      pass
+      return render(request, 'webCam/imageViewer.html', {'camera': camID, 'address': fname, 'form': form})
 
   else:
     form = photoForm()
