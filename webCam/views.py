@@ -31,7 +31,7 @@ def imageViewer(request, camID):
       computer = get_object_or_404(Computer, pk=camera.computer_id)
 
       # Get the current date time
-      dt = datetime.strptime(Date[:25].strip(), '%a, %d %b %Y %H:%M:%S')
+      dt = datetime.now().strptime('%y%m%d_%H:%M:%S')
       print dt
 
       # create a filename to save to.
