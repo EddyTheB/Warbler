@@ -1,16 +1,18 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 import paramiko
 from tools import getKey
 
 from .models import Computer, Camera, Image
+from .forms import photoForm
 
 
 # Create your views here.
 def index(request):
   return HttpResponse("Hello world! Index.")
 
+"""
 def imageViewer(request, camID):
 
   # get the camera
@@ -36,6 +38,20 @@ def imageViewer(request, camID):
   sftp.get("Documents/Development/{}".format(fname), "webCam/static/webCam/images/blah.jpg")
   sftp.close()
   ssh.close()
-  # 
+  #
 
   return render(request, 'webCam/imageViewer.html', {'Address': 'blah.jpg'})
+"""
+
+def get_photoForm(request):
+  if request.method == 'POST':
+    form = photoForm(request.POST)
+    if form.is_valid():
+      pass
+
+  else:
+    form = photoForm()
+
+  return render(request, 'imageViewer.html', {'form': form})
+
+
