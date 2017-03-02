@@ -15,15 +15,11 @@ def index(request):
 
 def imageViewer(request, camID):
 
-  print 'EEEEEEEEEEE'
-
-  print 'DDDDDDDDDDDDDDD'
-
   if request.method == 'POST':
     form = photoForm(request.POST)
     if form.is_valid():
       print 'a'
-      print form
+      print form.cleaned_data
       pass
     else:
       print 'b'
