@@ -37,8 +37,8 @@ def imageViewer(request, camID):
       # create a filename to save to.
       fname = "Cam{}_{}.jpg".format(camID, dt)
 
-  # create a filename to save to.
-  fname = "image.jpg"
+      # create a filename to save to.
+      fname = "image.jpg"
 
 
       pass
