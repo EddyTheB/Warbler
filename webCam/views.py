@@ -35,7 +35,7 @@ def imageViewer(request, camID):
 
       # Get the current date time
       dt = datetime.now().strftime('%y%m%d_%H%M%S')
-      dt_text = datetime.now().strftime('%H:%M:%S - %a %d %b %Y')
+      dt_text = datetime.now().strftime('%H:%M:%S_-_%a_%d_%b_%Y')
 
       # create a filename to save to.
       fname = "Cam{}_{}.jpg".format(camID, dt)
