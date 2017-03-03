@@ -70,14 +70,14 @@ def imageViewer(request, camID):
       #paramiko stuff was not working, su just use scp.
 
 
-      #sftp = ssh.open_sftp()
-      getFile = "Documents/Developmqqqent/{}".format(fname)
+      sftp = ssh.open_sftp()
+      getFile = "Documents/Development/{}".format(fname)
       putFile = "webCam/static/webCam/images/{}".format(fname)
-      host = "{}@{}".format(computer.user_name, computer.ip_address)
-      bashcommand = "scp {}:{} {}".format(host, getFile, putFile)
-      subprocess.call(bashcommand, shell=True)
-      #sftp.get(getFile, putFile)
-      #sftp.close()
+      #host = "{}@{}".format(computer.user_name, computer.ip_address)
+      #bashcommand = "scp {}:{} {}".format(host, getFile, putFile)
+      #subprocess.call(bashcommand, shell=True)
+      sftp.get(getFile, putFile)
+      sftp.close()
       # Now delete the original
       #command = "rm Documents/Development/{}".format(fname)
       #stdin, stdout, stderr = ssh.exec_command(command)
