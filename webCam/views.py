@@ -40,6 +40,9 @@ def imageViewer(request, camID):
       # create a filename to save to.
       fname = "Cam{}_{}.jpg".format(camID, dt)
 
+      # Add all of those details to the database.
+      Image.create(camera, fname, dt, ss, resw=720, resh=1280, text=dt_text)
+
       # connect to the computer
       ssh = paramiko.SSHClient()
       ssh.set_missing_host_key_policy(
@@ -48,7 +51,6 @@ def imageViewer(request, camID):
       ssh.connect(computer.ip_address, username=computer.user_name, password=getKey(computer.user_name))
 
       command = "cd Documents/Development/; python tools.py takePhoto --iso {} --ss {} --tt {} --fn {} --resw 720 --resh 1280".format(iso, ss, dt_text, fname)
-      print command
       stdin, stdout, stderr = ssh.exec_command(command)
       # Some sort of error handling would be good...
       #  print stderr.read()
@@ -56,13 +58,10 @@ def imageViewer(request, camID):
       # Wait for long enough for the photo to be taken.
       sleep(45)
 
-      print 'XXXXXXXXX'
       # Now copy the file locally.
       sftp = ssh.open_sftp()
       getFile = "Documents/Development/{}".format(fname)
       putFile = "webCam/static/webCam/images/{}".format(fname)
-      print getFile
-      print putFile
       sftp.get(getFile, putFile)
       sftp.close()
       # Now delete the original
