@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.utils import timezone
 
 import paramiko
 from datetime import datetime
@@ -37,7 +38,7 @@ def imageViewer(request, camID):
       d = datetime.now()
       dt_file = d.strftime('%y%m%d_%H%M%S')
       dt_text = d.strftime('%H:%M:%S_-_%a_%d_%b_%Y')
-      dt_mysql = d.strftime('%Y-%m-%d %H:%M:%S')
+      dt_mysql = d.strftime('%Y-%m-%d %H:%M:%S %z')
 
       # create a filename to save to.
       fname = "Cam{}_{}.jpg".format(camID, dt_file)
