@@ -74,7 +74,7 @@ def imageViewer(request, camID):
       getFile = "Documents/Developmqqqent/{}".format(fname)
       putFile = "webCam/static/webCam/images/{}".format(fname)
       host = "{}@{}".format(computer.user_name, computer.ip_address)
-      bashcommand = "scp {}:{} {}".format(host, getfile, putfile)
+      bashcommand = "scp {}:{} {}".format(host, getFile, putFile)
       subprocess.call(bashcommand, shell=True)
       #sftp.get(getFile, putFile)
       #sftp.close()
