@@ -77,6 +77,7 @@ def imageViewer(request, camID):
       bashcommand = "scp {}:{} {}".format(host, getFile, putFile)
       print bashcommand
       subprocess.call(bashcommand, shell=True)
+      sleep(2)
       print 'done'
       #sftp.get(getFile, putFile)
       #sftp.close()
