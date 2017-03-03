@@ -90,13 +90,13 @@ if __name__ == '__main__':
     ss = float(args[args.index('--ss')+1])
     tt = args[args.index('--tt')+1].replace('_', ' ')
     fn = args[args.index('--fn')+1]
-    resw = int(args[args.index('--resw')+1])
-    resh = int(args[args.index('--resh')+1])
+    #resw = int(args[args.index('--resw')+1])
+    #resh = int(args[args.index('--resh')+1])
 
     # Turn on the LEDs
     onGPIO(7, duration=-1)
     # initialize the camera
-    cam = initCamera(mode='Y', iso=iso, ss=ss, tt=tt, resw=resw, resh=resh)
+    cam = initCamera(mode='Y', iso=iso, ss=ss, tt=tt)#, resw=resw, resh=resh)
     # take the photo
     takePhoto(cam, fileName=fn)
     # turn off the lights.
