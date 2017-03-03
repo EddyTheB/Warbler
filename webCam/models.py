@@ -34,4 +34,11 @@ class Image(models.Model):
                                                    ("Ready", "Ready"),
                                                    ("Deleted", "Deleted")], default="InPrep")
 
+  @classmethod
+  def create(cls, camera, filename, exdate, shutterspeed, resw=1280, resh=720,
+             aperture=2.8, iso=100, text='', status='InPrep'):
+    image = cls(camera=camera, filename=filename, exdate=exdate, shutterspeed=shutterspeed,
+                resw=resw, resh=resh, aperture=aperture, iso=iso, text=text, status=status)
+    return image
+
 
