@@ -44,10 +44,8 @@ def imageViewer(request, camID):
       fname = "Cam{}_{}.jpg".format(camID, dt_file)
 
       # Add all of those details to the database.
-      print 'aaaaaaaa'
       I = Image(camera=camera, filename=fname, exdate=dt_mysql, shutterspeed=ss, resw=720, resh=1280, text=dt_text)
       I.save()
-      print 'bbbbbbb'
 
       # connect to the computer
       ssh = paramiko.SSHClient()
@@ -64,6 +62,7 @@ def imageViewer(request, camID):
       # Wait for long enough for the photo to be taken.
       sleep(45)
 
+
       # Now copy the file locally.
       sftp = ssh.open_sftp()
       getFile = "Documents/Development/{}".format(fname)
@@ -75,9 +74,18 @@ def imageViewer(request, camID):
       stdin, stdout, stderr = ssh.exec_command(command)
       ssh.close()
 
-      return render(request, 'webCam/imageViewer.html', {'camera': camID, 'address': fname, 'form': form})
+      # Tell the database that the image is ready.
+      I.status = 'Ready'
+
+      address = "/static/webCam/static/" + fname
+
+      return render(request, 'webCam/imageViewer.html', {'camera': camID, 'address': address, 'form': form})
 
   else:
+
+
+    # Get the most recent image.
+
     form = photoForm()
 
   return render(request, 'webCam/imageViewer.html', {'camera': camID, 'address': 'blahXXX.jpg', 'form': form})
