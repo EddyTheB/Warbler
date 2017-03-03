@@ -5,6 +5,7 @@ from django.utils import timezone
 import paramiko
 from datetime import datetime
 from time import sleep
+import subprocess
 
 
 from tools import getKey
@@ -66,11 +67,17 @@ def imageViewer(request, camID):
 
 
       # Now copy the file locally.
-      sftp = ssh.open_sftp()
+      #paramiko stuff was not working, su just use scp.
+
+
+      #sftp = ssh.open_sftp()
       getFile = "Documents/Developmqqqent/{}".format(fname)
       putFile = "webCam/static/webCam/images/{}".format(fname)
-      sftp.get(getFile, putFile)
-      sftp.close()
+      host = "{}@{}".format(computer.user_name, computer.ip_address)
+      bashcommand = "scp {}:{} {}".format(host, getfile, putfile)
+      subprocess.run(bashcommand.split())
+      #sftp.get(getFile, putFile)
+      #sftp.close()
       # Now delete the original
       #command = "rm Documents/Development/{}".format(fname)
       #stdin, stdout, stderr = ssh.exec_command(command)
