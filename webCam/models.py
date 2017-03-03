@@ -32,6 +32,6 @@ class Image(models.Model):
   text = models.CharField(max_length=200)
   status = models.CharField(max_length=9, choices=[("InPrep", "In Preperation"),
                                                    ("Ready", "Ready"),
-                                                   ("Deleted", "Deleted")], initial="InPrep")
+                                                   ("Deleted", "Deleted")], default="InPrep")
 
 
