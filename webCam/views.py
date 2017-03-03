@@ -41,7 +41,9 @@ def imageViewer(request, camID):
       fname = "Cam{}_{}.jpg".format(camID, dt)
 
       # Add all of those details to the database.
+      print 'aaaaaaaa'
       Image.create(camera, fname, dt, ss, resw=720, resh=1280, text=dt_text)
+      print 'bbbbbbb'
 
       # connect to the computer
       ssh = paramiko.SSHClient()
