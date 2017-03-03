@@ -22,10 +22,16 @@ class Camera(models.Model):
 
 class Image(models.Model):
   camera = models.ForeignKey(Camera, on_delete=models.CASCADE)
-  filename = models.CharField(max_length=200)
+  filename = models.ImageField()
   exdate = models.DateTimeField('exposure date')
+  resw = models.IntegerField(default=1280)
+  resh = models.IntegerField(default=720)
   shutterspeed = models.FloatField()
   aperture = models.FloatField(default=2.8)
   iso = models.IntegerField(default=100)
   text = models.CharField(max_length=200)
+  status = models.CharField(max_length=9, choices=[("InPrep", "In Preperation"),
+                                                   ("Ready", "Ready"),
+                                                   ("Deleted", "Deleted")], initial="InPrep")
+
 
