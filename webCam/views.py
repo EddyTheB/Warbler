@@ -70,15 +70,8 @@ def imageViewer(request, camID):
       transport = paramiko.Transport((computer.ip_address, 22))
       transport.connect(username=computer.user_name, password=getKey(computer.user_name))
       sftp = paramiko.SFTPClient.from_transport(transport)
-      #sftp = ssh.open_sftp()
       getFile = "Documents/Development/{}".format(fname)
       putFile = "webCam/static/webCam/images/{}".format(fname)
-      #host = "{}@{}".format(computer.user_name, computer.ip_address)
-      #bashcommand = "scp {}:{} {}".format(host, getFile, putFile)
-      #print bashcommand
-      #subprocess.call(bashcommand, shell=True)
-      #sleep(2)
-      #print 'done'
       sftp.get(getFile, putFile)
       sftp.close()
       transport.close()

@@ -52,6 +52,7 @@ def initCamera(mode='default', iso='default', ss='default', tt='default', resw=1
 
     cam.shutter_speed = int(ss*1e6) # 6 seconds is the maximum
     cam.iso = iso
+    cam.rotation = 270
     # Give the camera a good long time to set gains and
     # measure AWB (you may wish to use fixed AWB instead)
     time.sleep(30) #(30)
