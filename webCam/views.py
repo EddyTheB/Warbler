@@ -47,7 +47,7 @@ def imageViewer(request, camID):
                                     # doesn't recognise host.
       ssh.connect(computer.ip_address, username=computer.user_name, password=getKey(computer.user_name))
 
-      command = "cd Documents/Development/; python tools.py takePhoto --iso {} --ss {} --tt {} --fn {}".format(iso, ss, dt_text, fname)
+      command = "cd Documents/Development/; python tools.py takePhoto --iso {} --ss {} --tt {} --fn {} --resw 720 --resh 1280".format(iso, ss, dt_text, fname)
       print command
       stdin, stdout, stderr = ssh.exec_command(command)
       # Some sort of error handling would be good...

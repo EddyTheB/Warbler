@@ -88,10 +88,10 @@ if __name__ == '__main__':
     # Get the arguments
     iso = int(args[args.index('--iso')+1])
     ss = float(args[args.index('--ss')+1])
-    tt = args[args.index('--tt')+1]
+    tt = args[args.index('--tt')+1].replace('_', ' ')
     fn = args[args.index('--fn')+1]
-    resw = args[args.index('--resw')+1]
-    resh = args[args.index('--resh')+1]
+    resw = int(args[args.index('--resw')+1])
+    resh = int(args[args.index('--resh')+1])
 
     # Turn on the LEDs
     onGPIO(7, duration=-1)
