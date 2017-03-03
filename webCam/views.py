@@ -77,7 +77,7 @@ def imageViewer(request, camID):
       # Tell the database that the image is ready.
       I.status = 'Ready'
 
-      address = "/static/images/" + fname
+      address = "/static/webCam/images/" + fname
 
       return render(request, 'webCam/imageViewer.html', {'camera': camID, 'address': address, 'form': form})
 
