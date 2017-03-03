@@ -5,7 +5,7 @@ from django.utils import timezone
 import paramiko
 from datetime import datetime
 from time import sleep
-import subprocess
+#import subprocess
 
 
 from tools import getKey
@@ -64,27 +64,28 @@ def imageViewer(request, camID):
 
       # Wait for long enough for the photo to be taken.
       sleep(45)
+      ssh.close()
 
-
-      # Now copy the file locally.
-      #paramiko stuff was not working, su just use scp.
-
-
+      # Now copy the file locally using sftp.
+      transport = paramiko.Transport((computer.ip_address, 22))
+      transport.connect(username=computer.user_name, password=getKey(computer.user_name))
+      sftp = paramiko.SFTPClient.from_transport(transport)
       #sftp = ssh.open_sftp()
       getFile = "Documents/Development/{}".format(fname)
       putFile = "webCam/static/webCam/images/{}".format(fname)
-      host = "{}@{}".format(computer.user_name, computer.ip_address)
-      bashcommand = "scp {}:{} {}".format(host, getFile, putFile)
-      print bashcommand
-      subprocess.call(bashcommand, shell=True)
-      sleep(2)
-      print 'done'
-      #sftp.get(getFile, putFile)
-      #sftp.close()
+      #host = "{}@{}".format(computer.user_name, computer.ip_address)
+      #bashcommand = "scp {}:{} {}".format(host, getFile, putFile)
+      #print bashcommand
+      #subprocess.call(bashcommand, shell=True)
+      #sleep(2)
+      #print 'done'
+      sftp.get(getFile, putFile)
+      sftp.close()
+      transport.close()
       # Now delete the original
       #command = "rm Documents/Development/{}".format(fname)
       #stdin, stdout, stderr = ssh.exec_command(command)
-      ssh.close()
+
 
       # Tell the database that the image is ready.
       I.status = 'Ready'
