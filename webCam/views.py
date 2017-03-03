@@ -67,14 +67,14 @@ def imageViewer(request, camID):
 
       # Now copy the file locally.
       sftp = ssh.open_sftp()
-      getFile = "Documents/Development/{}".format(fname)
+      getFile = "Documents/Developmqqqent/{}".format(fname)
       putFile = "webCam/static/webCam/images/{}".format(fname)
       sftp.get(getFile, putFile)
       sftp.close()
       # Now delete the original
       #command = "rm Documents/Development/{}".format(fname)
       #stdin, stdout, stderr = ssh.exec_command(command)
-      #ssh.close()
+      ssh.close()
 
       # Tell the database that the image is ready.
       I.status = 'Ready'
