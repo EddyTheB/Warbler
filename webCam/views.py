@@ -34,15 +34,17 @@ def imageViewer(request, camID):
       computer = get_object_or_404(Computer, pk=camera.computer_id)
 
       # Get the current date time
-      dt = datetime.now().strftime('%y%m%d_%H%M%S')
-      dt_text = datetime.now().strftime('%H:%M:%S_-_%a_%d_%b_%Y')
+      d = datetime.now()
+      dt_file = d.strftime('%y%m%d_%H%M%S')
+      dt_text = d.strftime('%H:%M:%S_-_%a_%d_%b_%Y')
+      dt_mysql = d.strftime('%Y-%m%d %H:%M:%S')
 
       # create a filename to save to.
-      fname = "Cam{}_{}.jpg".format(camID, dt)
+      fname = "Cam{}_{}.jpg".format(camID, dt_file)
 
       # Add all of those details to the database.
       print 'aaaaaaaa'
-      I = Image(camera=camera, filename=fname, exdate=dt, shutterspeed=ss, resw=720, resh=1280, text=dt_text)
+      I = Image(camera=camera, filename=fname, exdate=dt_mysql, shutterspeed=ss, resw=720, resh=1280, text=dt_text)
       I.save()
       print 'bbbbbbb'
 
