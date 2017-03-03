@@ -37,7 +37,7 @@ def imageViewer(request, camID):
       d = datetime.now()
       dt_file = d.strftime('%y%m%d_%H%M%S')
       dt_text = d.strftime('%H:%M:%S_-_%a_%d_%b_%Y')
-      dt_mysql = d.strftime('%Y-%m%d %H:%M:%S')
+      dt_mysql = d.strftime('%Y-%m-%d %H:%M:%S')
 
       # create a filename to save to.
       fname = "Cam{}_{}.jpg".format(camID, dt_file)
