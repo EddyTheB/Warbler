@@ -42,7 +42,8 @@ def imageViewer(request, camID):
 
       # Add all of those details to the database.
       print 'aaaaaaaa'
-      Image.create(camera, fname, dt, ss, resw=720, resh=1280, text=dt_text)
+      I = Image(camera=camera, filename=fname, exdate=dt, shutterspeed=ss, resw=720, resh=1280, text=dt_text)
+      I.save()
       print 'bbbbbbb'
 
       # connect to the computer
