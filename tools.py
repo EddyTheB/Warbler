@@ -3,7 +3,7 @@ import json
 import time
 import sys
 import RPi.GPIO as GPIO
-from fraction import Fraction
+from fractions import Fraction
 homeDir = os.path.expanduser('~')
 
 try:
