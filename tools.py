@@ -3,7 +3,6 @@ import json
 import time
 import sys
 import RPi.GPIO as GPIO
-from fractions import Fraction
 homeDir = os.path.expanduser('~')
 
 try:
@@ -37,7 +36,7 @@ def offGPIO(pinNo):
   GPIO.output(pinNo, False)
   GPIO.cleanup()
 
-def initCamera(mode='default', iso='default', ss='default', tt='default', resw=1280, resh=720):
+def initCamera(mode='default', iso='default', ss='default', tt='default'):#, resw=1280, resh=720):
   if gotpicamera == False:
     print 'not got picamera'
     # raise error
@@ -47,7 +46,7 @@ def initCamera(mode='default', iso='default', ss='default', tt='default', resw=1
     cam.start_preview()
     time.sleep(2)
   else:
-    cam = PiCamera(resolution=(resw, resh), framerate=Fraction(1,6))
+    cam = PiCamera() #resolution=(resw, resh), framerate=Fraction(1,6))
     #cam.color_effects = (128,128) # turn camera to black and white
 
     cam.shutter_speed = int(ss*1e6) # 6 seconds is the maximum
